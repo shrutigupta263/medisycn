@@ -43,6 +43,16 @@ All colors MUST be HSL.
     --health-light-blue: 192 90% 77%;
     --health-sidebar: 220 13% 96%;
     --health-sidebar-active: 192 90% 95%;
+    
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--health-light-blue)));
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+    --gradient-glow: linear-gradient(135deg, hsl(var(--primary)/0.2), hsl(var(--health-light-blue)/0.2));
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px hsl(var(--primary)/0.1);
+    --shadow-medium: 0 8px 30px hsl(var(--primary)/0.15);
+    --shadow-strong: 0 12px 40px hsl(var(--primary)/0.2);
 
     --radius: 0.5rem;
 
@@ -109,5 +119,85 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Modern glassmorphism effect */
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+  
+  /* Gradient borders */
+  .gradient-border {
+    @apply relative overflow-hidden;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg p-[1px] bg-gradient-to-r from-primary via-health-light-blue to-health-green;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+  }
+  
+  /* Hover animations */
+  .card-hover {
+    @apply transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1;
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .card-hover:hover {
+    box-shadow: var(--shadow-strong);
+  }
+  
+  /* Pulse animation for important elements */
+  .pulse-ring {
+    @apply relative;
+  }
+  
+  .pulse-ring::before {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-primary/20 animate-ping;
+  }
+  
+  /* Smooth slide in animation */
+  .slide-in {
+    @apply animate-[slideIn_0.5s_ease-out_forwards];
+  }
+  
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-health-light-blue to-health-green bg-clip-text text-transparent;
+  }
+  
+  /* Modern card styling */
+  .modern-card {
+    @apply bg-gradient-to-br from-card to-muted/50 border-0 shadow-lg;
+    box-shadow: var(--shadow-medium);
+  }
+  
+  /* Floating animation */
+  .float-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

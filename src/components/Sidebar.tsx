@@ -17,17 +17,21 @@ const menuItems = [
 
 export const Sidebar = ({ activeItem, onItemClick }: SidebarProps) => {
   return (
-    <div className="w-64 bg-health-sidebar h-screen p-6 border-r border-border flex flex-col">
+    <div className="w-64 bg-gradient-to-b from-health-sidebar to-health-sidebar/80 h-screen p-6 border-r border-border/50 flex flex-col backdrop-blur-sm">
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-8">
-        <Stethoscope className="h-8 w-8 text-primary" />
-        <h1 className="text-xl font-semibold text-primary">Medisycn</h1>
+      <div className="flex items-center gap-3 mb-8 group cursor-pointer">
+        <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-health-light-blue group-hover:scale-110 transition-all duration-300">
+          <Stethoscope className="h-6 w-6 text-white" />
+        </div>
+        <h1 className="text-xl font-bold text-gradient group-hover:scale-105 transition-transform duration-300">
+          Medisycn
+        </h1>
       </div>
 
       {/* Main Menu */}
-      <div className="space-y-1">
-        <h2 className="text-sm font-medium text-muted-foreground mb-3">Main Menu</h2>
-        {menuItems.map((item) => {
+      <div className="space-y-2">
+        <h2 className="text-xs font-bold text-muted-foreground mb-4 uppercase tracking-wider">Main Menu</h2>
+        {menuItems.map((item, index) => {
           const Icon = item.icon;
           const isActive = activeItem === item.id;
           
@@ -36,14 +40,27 @@ export const Sidebar = ({ activeItem, onItemClick }: SidebarProps) => {
               key={item.id}
               onClick={() => onItemClick(item.id)}
               className={cn(
-                "w-full flex items-center gap-3 px-3 py-2 text-left rounded-lg transition-colors",
+                "w-full flex items-center gap-4 px-4 py-3 text-left rounded-xl transition-all duration-300 group relative overflow-hidden",
                 isActive
-                  ? "bg-health-sidebar-active text-primary border border-primary/20"
-                  : "text-muted-foreground hover:bg-health-sidebar-active hover:text-foreground"
+                  ? "bg-gradient-to-r from-primary/20 to-health-light-blue/20 text-primary shadow-lg shadow-primary/10 border border-primary/30"
+                  : "text-muted-foreground hover:bg-gradient-to-r hover:from-primary/5 hover:to-health-light-blue/5 hover:text-foreground hover:scale-105 hover:-translate-y-0.5"
               )}
+              style={{
+                animationDelay: `${index * 0.1}s`
+              }}
             >
-              <Icon className="h-4 w-4" />
-              <span className="text-sm">{item.label}</span>
+              {/* Hover shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className={cn(
+                "p-2 rounded-lg transition-all duration-300 relative z-10",
+                isActive ? "bg-primary/20 scale-110" : "group-hover:bg-primary/10 group-hover:scale-110"
+              )}>
+                <Icon className="h-4 w-4" />
+              </div>
+              <span className="text-sm font-medium relative z-10 group-hover:translate-x-1 transition-transform duration-300">
+                {item.label}
+              </span>
             </button>
           );
         })}
@@ -51,13 +68,18 @@ export const Sidebar = ({ activeItem, onItemClick }: SidebarProps) => {
 
       {/* User Profile */}
       <div className="mt-auto pt-6">
-        <div className="flex items-center gap-3 p-3 bg-health-sidebar-active rounded-lg border border-primary/10">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-health-light-blue flex items-center justify-center text-primary-foreground font-semibold">
-            JD
-          </div>
-          <div>
-            <p className="font-medium text-foreground">John Doe</p>
-            <p className="text-sm text-muted-foreground">john@example.com</p>
+        <div className="group cursor-pointer">
+          <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-card/50 to-muted/30 rounded-xl border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 backdrop-blur-sm">
+            <div className="relative">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-health-light-blue flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                JD
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-health-green rounded-full border-2 border-white"></div>
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">John Doe</p>
+              <p className="text-xs text-muted-foreground">john@example.com</p>
+            </div>
           </div>
         </div>
       </div>
