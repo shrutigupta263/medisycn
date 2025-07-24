@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { Dashboard } from "@/components/Dashboard";
+import { FamilyProfiles } from "@/components/FamilyProfiles";
 
 const Index = () => {
   const [activeMenuItem, setActiveMenuItem] = useState("dashboard");
@@ -9,6 +10,8 @@ const Index = () => {
     switch (activeMenuItem) {
       case "dashboard":
         return <Dashboard />;
+      case "family":
+        return <FamilyProfiles />;
       default:
         return (
           <div className="flex-1 p-8 flex items-center justify-center">
