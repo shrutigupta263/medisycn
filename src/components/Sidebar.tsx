@@ -17,7 +17,7 @@ const menuItems = [
 
 export const Sidebar = ({ activeItem, onItemClick }: SidebarProps) => {
   return (
-    <div className="w-64 bg-health-sidebar h-screen p-6 border-r border-border">
+    <div className="w-64 bg-health-sidebar h-screen p-6 border-r border-border flex flex-col">
       {/* Logo */}
       <div className="flex items-center gap-2 mb-8">
         <Stethoscope className="h-8 w-8 text-primary" />
@@ -47,6 +47,19 @@ export const Sidebar = ({ activeItem, onItemClick }: SidebarProps) => {
             </button>
           );
         })}
+      </div>
+
+      {/* User Profile */}
+      <div className="mt-auto pt-6">
+        <div className="flex items-center gap-3 p-3 bg-health-sidebar-active rounded-lg border border-primary/10">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-health-light-blue flex items-center justify-center text-primary-foreground font-semibold">
+            JD
+          </div>
+          <div>
+            <p className="font-medium text-foreground">John Doe</p>
+            <p className="text-sm text-muted-foreground">john@example.com</p>
+          </div>
+        </div>
       </div>
     </div>
   );

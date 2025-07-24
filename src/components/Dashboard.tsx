@@ -144,16 +144,6 @@ export const Dashboard = () => {
         </Card>
       </div>
 
-      {/* User Profile */}
-      <div className="mt-8 flex items-center gap-3 p-4 bg-card rounded-lg border">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-health-light-blue flex items-center justify-center text-primary-foreground font-semibold">
-          JD
-        </div>
-        <div>
-          <p className="font-medium text-foreground">John Doe</p>
-          <p className="text-sm text-muted-foreground">john@example.com</p>
-        </div>
-      </div>
     </div>
   );
 };
