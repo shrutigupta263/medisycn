@@ -3,17 +3,10 @@ import { Upload, FileText, Pill, Calendar, Activity, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricCard } from "./MetricCard";
+import { FileUploadDialog } from "./FileUploadDialog";
 
 export const Dashboard = () => {
-  const [uploadingReport, setUploadingReport] = useState(false);
-
-  const handleUploadReport = () => {
-    setUploadingReport(true);
-    // Simulate upload process
-    setTimeout(() => {
-      setUploadingReport(false);
-    }, 2000);
-  };
+  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
 
   const reminders = [
     {
@@ -59,12 +52,11 @@ export const Dashboard = () => {
               detailed summary of your health metrics.
             </p>
             <Button 
-              onClick={handleUploadReport}
-              disabled={uploadingReport}
+              onClick={() => setIsUploadDialogOpen(true)}
               className="bg-gradient-to-r from-primary to-health-light-blue text-white hover:shadow-lg hover:scale-105 transition-all duration-300 px-6 py-3 text-lg font-semibold"
             >
-              <Upload className={`h-5 w-5 mr-2 ${uploadingReport ? 'animate-spin' : ''}`} />
-              {uploadingReport ? "Uploading..." : "Upload Report"}
+              <Upload className="h-5 w-5 mr-2" />
+              Upload Report
             </Button>
           </div>
         </CardContent>
@@ -169,6 +161,11 @@ export const Dashboard = () => {
         </Card>
       </div>
 
+      {/* File Upload Dialog */}
+      <FileUploadDialog 
+        open={isUploadDialogOpen} 
+        onOpenChange={setIsUploadDialogOpen} 
+      />
     </div>
   );
 };
