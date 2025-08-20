@@ -4,9 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricCard } from "./MetricCard";
 import { FileUploadDialog } from "./FileUploadDialog";
+import ReportAnalysis from "./ReportAnalysis";
 
 export const Dashboard = () => {
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
+  const [isReportAnalysisOpen, setIsReportAnalysisOpen] = useState(false);
+
+  const handleUploadComplete = () => {
+    setIsUploadDialogOpen(false);
+    setIsReportAnalysisOpen(true);
+  };
 
   const reminders = [
     {
@@ -164,7 +171,14 @@ export const Dashboard = () => {
       {/* File Upload Dialog */}
       <FileUploadDialog 
         open={isUploadDialogOpen} 
-        onOpenChange={setIsUploadDialogOpen} 
+        onOpenChange={setIsUploadDialogOpen}
+        onUploadComplete={handleUploadComplete}
+      />
+
+      {/* Report Analysis */}
+      <ReportAnalysis 
+        isOpen={isReportAnalysisOpen}
+        onClose={() => setIsReportAnalysisOpen(false)}
       />
     </div>
   );

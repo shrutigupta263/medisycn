@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 interface FileUploadDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onUploadComplete?: () => void;
 }
 
 interface UploadedFile {
@@ -17,7 +18,7 @@ interface UploadedFile {
   id: string;
 }
 
-export const FileUploadDialog = ({ open, onOpenChange }: FileUploadDialogProps) => {
+export const FileUploadDialog = ({ open, onOpenChange, onUploadComplete }: FileUploadDialogProps) => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -246,7 +247,7 @@ export const FileUploadDialog = ({ open, onOpenChange }: FileUploadDialogProps) 
                   title: "Files processed!",
                   description: `${uploadedFiles.filter(f => f.status === 'completed').length} files have been successfully analyzed.`,
                 });
-                handleClose();
+                onUploadComplete?.();
               }}
             >
               Process Files ({uploadedFiles.filter(f => f.status === 'completed').length})
